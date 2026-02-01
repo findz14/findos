@@ -27,13 +27,13 @@ dnf5 install -y \
     --enablerepo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos" \
     --allowerasing \
     --setopt=tsflags=noscripts \
-    kernel-cachyos-lts \
-    kernel-cachyos-lts-devel-matched \
-    kernel-cachyos-lts-devel \
-    kernel-cachyos-lts-modules \
-    kernel-cachyos-lts-core
+    kernel-cachyos \
+    kernel-cachyos-devel-matched \
+    kernel-cachyos-devel \
+    kernel-cachyos-modules \
+    kernel-cachyos-core
 
-KERNEL_VERSION="$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' kernel-cachyos-lts)"
+KERNEL_VERSION="$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' kernel-cachyos)"
 
 # Depmod (required for fedora 43+)
 depmod -a "${KERNEL_VERSION}"
@@ -46,8 +46,8 @@ if [[ -f "${VMLINUZ_SOURCE}" ]]; then
 fi
 
 # Lock kernel packages
-dnf5 versionlock add "kernel-cachyos-lts-${KERNEL_VERSION}" || true
-dnf5 versionlock add "kernel-cachyos-lts-modules-${KERNEL_VERSION}" || true
+dnf5 versionlock add "kernel-cachyos-${KERNEL_VERSION}" || true
+dnf5 versionlock add "kernel-cachyos-modules-${KERNEL_VERSION}" || true
 
 
 # Thank you @renner03 for this part
