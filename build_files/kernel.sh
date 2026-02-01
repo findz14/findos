@@ -2,6 +2,8 @@
 
 set -ouex pipefail
 
+dnf5 install -y steam --skip-unavailable
+
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
 
 # Adds required package for the scheduler
