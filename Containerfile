@@ -47,16 +47,7 @@ RUN rpm-ostree install \
     mesa-dri-drivers.i686 \
     mesa-libGL.i686 \
     libgcc.i686 \
-    libstdc++.i686
-
-
-# Enable RPM Fusion repositories
-RUN rpm-ostree install \
-    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
-    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
-
-# Install multimedia codecs and tools
-RUN rpm-ostree install \
+    libstdc++.i686 \
     gstreamer1-plugins-base \
     gstreamer1-plugins-good \
     gstreamer1-plugins-bad-free \
@@ -65,7 +56,7 @@ RUN rpm-ostree install \
     gstreamer1-libav \
     ffmpeg \
     lame \
-    libdvdcss
+    libdvdcs
 
 ### LINTING
 ## Verify final image and contents are correct.
