@@ -28,7 +28,7 @@ dnf5 install -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages --
     # qemu-user-binfmt \
     # qemu-user-static
 
-dnf5 install steam
+dnf5 install -y steam --skip-unavailable
 
 # Use a COPR Example:
 #
