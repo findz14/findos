@@ -35,6 +35,19 @@ RUN --mount=type=bind,from=ctx,source=/,target=/ctx \
     --mount=type=tmpfs,dst=/tmp \
     /ctx/cachy.sh \
     /ctx/packages.sh
+
+# Enable RPM Fusion (free + nonfree)
+RUN rpm-ostree install \
+    https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
+    https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+
+# Install Steam + 32-bit dependencies
+RUN rpm-ostree install \
+    steam \
+    mesa-dri-drivers.i686 \
+    mesa-libGL.i686 \
+    libgcc.i686 \
+    libstdc++.i686
     
 ### LINTING
 ## Verify final image and contents are correct.
