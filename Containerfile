@@ -54,8 +54,7 @@ RUN rpm-ostree install \
     gstreamer1-plugins-bad-freeworld \
     gstreamer1-plugins-ugly \
     gstreamer1-libav \
-    ffmpeg \
-    lame \
+    ffmpeg 
 
 ### LINTING
 ## Verify final image and contents are correct.
