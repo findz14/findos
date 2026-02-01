@@ -2,8 +2,6 @@
 
 set -ouex pipefail
 
-dnf5 install -y steam --skip-unavailable
-
 dnf5 copr enable -y bieszczaders/kernel-cachyos-addons
 
 # Adds required package for the scheduler
@@ -29,11 +27,11 @@ dnf5 install -y \
     --enablerepo="copr:copr.fedorainfracloud.org:bieszczaders:kernel-cachyos" \
     --allowerasing \
     --setopt=tsflags=noscripts \
-    kernel-cachyos-lts \
-    kernel-cachyos-lts-devel-matched \
-    kernel-cachyos-lts-devel \
-    kernel-cachyos-lts-modules \
-    kernel-cachyos-lts-core
+    kernel-cachyos \
+    kernel-cachyos-devel-matched \
+    kernel-cachyos-devel \
+    kernel-cachyos-modules \
+    kernel-cachyos-core
 
 KERNEL_VERSION="$(rpm -q --qf '%{VERSION}-%{RELEASE}.%{ARCH}\n' kernel-cachyos-lts)"
 

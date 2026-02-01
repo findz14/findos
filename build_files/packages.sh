@@ -27,6 +27,7 @@ dnf5 install -y --enablerepo copr:copr.fedorainfracloud.org:ublue-os:packages --
     # qemu-system-x86-core \
     # qemu-user-binfmt \
     # qemu-user-static
+    docker
 
 dnf5 install -y steam --skip-unavailable
 
