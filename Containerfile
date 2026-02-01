@@ -56,7 +56,6 @@ RUN rpm-ostree install \
     gstreamer1-libav \
     ffmpeg \
     lame \
-    libdvdcs
 
 ### LINTING
 ## Verify final image and contents are correct.
