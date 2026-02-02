@@ -41,20 +41,21 @@ RUN rpm-ostree install \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-# Install Steam + 32-bit dependencies
-RUN rpm-ostree install \
-    steam \
-    mesa-dri-drivers.i686 \
-    mesa-libGL.i686 \
-    libgcc.i686 \
-    libstdc++.i686 \
-    gstreamer1-plugins-base \
-    gstreamer1-plugins-good \
-    gstreamer1-plugins-bad-free \
-    gstreamer1-plugins-bad-freeworld \
-    gstreamer1-plugins-ugly \
-    gstreamer1-libav \
-    ffmpeg 
+RUN rpm-ostree override remove ffmpeg-free \
+    && rpm-ostree install \
+        steam \
+        mesa-dri-drivers.i686 \
+        mesa-libGL.i686 \
+        libgcc.i686 \
+        libstdc++.i686 \
+        gstreamer1-plugins-base \
+        gstreamer1-plugins-good \
+        gstreamer1-plugins-bad-free \
+        gstreamer1-plugins-bad-freeworld \
+        gstreamer1-plugins-ugly \
+        gstreamer1-libav \
+        ffmpeg
+
 
 ### LINTING
 ## Verify final image and contents are correct.
