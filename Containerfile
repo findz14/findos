@@ -46,11 +46,6 @@ RUN rpm-ostree install \
 FROM ghcr.io/ublue-os/silverblue-main:latest
 # Or kinoite-main/sericea-main, matching your desktop variant
 
-# 1) Get RPM Fusion repo definitions from uBlue's helper image
-COPY --from=ghcr.io/ublue-os/rpmfusion:latest /etc/yum.repos.d/rpmfusion*.repo /etc/yum.repos.d/
-# If you need patent-encumbered/extra formats, also copy tainted repos:
-# COPY --from=ghcr.io/ublue-os/rpmfusion:latest /etc/yum.repos.d/rpmfusion-*-tainted.repo /etc/yum.repos.d/
-
 # 2) Install packages (note: 'vainfo' -> 'libva-utils')
 RUN rpm-ostree install \
       # Steam + 32-bit GL stack (you already had these)
