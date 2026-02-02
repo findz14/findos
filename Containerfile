@@ -48,7 +48,7 @@ RUN rpm-ostree install \
         mesa-dri-drivers.i686 \
         mesa-libGL.i686 \
         libgcc.i686 \
-        libstdc++.i686 
+        libstdc++.i686 \
         ffmpeg \
         gstreamer1-plugins-base \
         gstreamer1-plugins-good \
