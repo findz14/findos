@@ -41,7 +41,14 @@ RUN rpm-ostree install \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-RUN rpm-ostree override remove ffmpeg-free \
+RUN rpm-ostree override remove \
+        ffmpeg-free \
+        libavcodec-free \
+        libavformat-free \
+        libavutil-free \
+        libswscale-free \
+        libswresample-free \
+        libpostproc-free \
     && rpm-ostree install \
         steam \
         mesa-dri-drivers.i686 \
@@ -55,6 +62,7 @@ RUN rpm-ostree override remove ffmpeg-free \
         gstreamer1-plugins-ugly \
         gstreamer1-libav \
         ffmpeg
+
 
 
 ### LINTING
