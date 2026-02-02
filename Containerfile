@@ -49,6 +49,19 @@ RUN rpm-ostree install \
         mesa-libGL.i686 \
         libgcc.i686 \
         libstdc++.i686 
+        ffmpeg \
+        gstreamer1-plugins-base \
+        gstreamer1-plugins-good \
+        gstreamer1-plugins-bad-free \
+        gstreamer1-plugins-bad-freeworld \
+        gstreamer1-plugins-ugly \
+        gstreamer1-libav \
+        libva vainfo \
+        intel-media-driver libva-intel-driver \
+        mesa-va-drivers mesa-vdpau-drivers vdpauinfo \
+        alsa-plugins-pulseaudio pipewire-codec-aptx \
+        && rpm-ostree cleanup -m
+
 
 
 ### LINTING
