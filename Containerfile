@@ -41,15 +41,16 @@ RUN rpm-ostree install \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
-RUN rpm-ostree override remove \
-        ffmpeg-free \
-        libavcodec-free \
-        libavformat-free \
-        libavutil-free \
-        libswscale-free \
-        libswresample-free \
-        libpostproc-free \
-    && rpm-ostree install \
+
+# Remove all Fedora ffmpeg-free components and install RPM Fusion ffmpeg + Steam
+RUN set -euo pipefail && \
+    echo "Detecting ffmpeg-free packages…" && \
+    FREE_PKGS=$(rpm -qa | grep -E '^(ffmpeg-free|libav.*-free|libsw.*-free|libpostproc-free)') && \
+    echo "Removing: $FREE_PKGS" && \
+    rpm-ostree override remove $FREE_PKGS && \
+    \
+    echo "Installing RPM Fusion ffmpeg + multimedia + Steam…" && \
+    rpm-ostree install \
         steam \
         mesa-dri-drivers.i686 \
         mesa-libGL.i686 \
@@ -62,7 +63,6 @@ RUN rpm-ostree override remove \
         gstreamer1-plugins-ugly \
         gstreamer1-libav \
         ffmpeg
-
 
 
 ### LINTING
