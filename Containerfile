@@ -41,26 +41,48 @@ RUN rpm-ostree install \
     https://mirrors.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm \
     https://mirrors.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
 
+# uBlue derivative with codecs + Steam 32‑bit deps via rpm-ostree
 
-# Remove all Fedora ffmpeg-free components and install RPM Fusion ffmpeg + Steam
+FROM ghcr.io/ublue-os/silverblue-main:latest
+# Or kinoite-main/sericea-main, matching your desktop variant
+
+# 1) Get RPM Fusion repo definitions from uBlue's helper image
+COPY --from=ghcr.io/ublue-os/rpmfusion:latest /etc/yum.repos.d/rpmfusion*.repo /etc/yum.repos.d/
+# If you need patent-encumbered/extra formats, also copy tainted repos:
+# COPY --from=ghcr.io/ublue-os/rpmfusion:latest /etc/yum.repos.d/rpmfusion-*-tainted.repo /etc/yum.repos.d/
+
+# 2) Install packages (note: 'vainfo' -> 'libva-utils')
 RUN rpm-ostree install \
-        steam \
-        mesa-dri-drivers.i686 \
-        mesa-libGL.i686 \
-        libgcc.i686 \
-        libstdc++.i686 \
-        ffmpeg \
-        gstreamer1-plugins-base \
-        gstreamer1-plugins-good \
-        gstreamer1-plugins-bad-free \
-        gstreamer1-plugins-bad-freeworld \
-        gstreamer1-plugins-ugly \
-        gstreamer1-libav \
-        libva vainfo \
-        intel-media-driver libva-intel-driver \
-        mesa-va-drivers mesa-vdpau-drivers vdpauinfo \
-        alsa-plugins-pulseaudio pipewire-codec-aptx \
-        && rpm-ostree cleanup -m
+      # Steam + 32-bit GL stack (you already had these)
+      steam \
+      mesa-dri-drivers.i686 \
+      mesa-libGL.i686 \
+      libgcc.i686 \
+      libstdc++.i686 \
+      \
+      # FFmpeg + GStreamer codec families
+      ffmpeg \
+      gstreamer1-plugins-base \
+      gstreamer1-plugins-good \
+      gstreamer1-plugins-bad-free \
+      gstreamer1-plugins-bad-freeworld \
+      gstreamer1-plugins-ugly \
+      gstreamer1-libav \
+      \
+      # VAAPI/VDPAU + utils
+      libva \
+      libva-utils \        # <-- provides 'vainfo'
+      intel-media-driver \
+      libva-intel-driver \
+      mesa-va-drivers \
+      mesa-vdpau-drivers \
+      vdpauinfo \
+      \
+      # Audio extras
+      alsa-plugins-pulseaudio \
+      pipewire-codec-aptx \
+    && rpm-ostree cleanup -m \
+    && ostree container commit 
 
 
 
